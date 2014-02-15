@@ -7,13 +7,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity {
-	
-	public static int highscore = 0;
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +22,7 @@ public class MainActivity extends Activity {
         
         //	READ HIGHSCORE
     	SharedPreferences prefs = getSharedPreferences("gamedata", Context.MODE_PRIVATE);
-    	highscore = prefs.getInt("hisc", 0);
+    	Highscore.Highscore = prefs.getInt("hisc", 0);
         
         try {
 			setContentView(new MainGamePanel(this));
@@ -38,7 +37,7 @@ public class MainActivity extends Activity {
     	
     	SharedPreferences prefs = getSharedPreferences("gamedata", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
-		editor.putInt("hisc", highscore);
+		editor.putInt("hisc", Highscore.Highscore);
 		editor.commit();
     }
     
@@ -53,7 +52,7 @@ public class MainActivity extends Activity {
 		
 		SharedPreferences prefs = getSharedPreferences("gamedata", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
-		editor.putInt("hisc", highscore);
+		editor.putInt("hisc", Highscore.Highscore);
 		editor.commit();
 	}
 
@@ -63,7 +62,7 @@ public class MainActivity extends Activity {
 		
 		SharedPreferences prefs = getSharedPreferences("gamedata", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
-		editor.putInt("hisc", highscore);
+		editor.putInt("hisc", Highscore.Highscore);
 		editor.commit();
 	}
     

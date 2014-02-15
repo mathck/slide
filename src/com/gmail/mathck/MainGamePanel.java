@@ -49,7 +49,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 	private enum state { menu, game, score, postGame, med }
 	state game_state = state.menu;
 	private boolean postGame_delay = true;
-	private boolean showBubble = (MainActivity.highscore >= 100) ? false : true;
+	private boolean showBubble = (Highscore.Highscore >= 100) ? false : true;
 	private boolean pro = !showBubble;
 
 	//----------------------------------------------------------------------
@@ -303,25 +303,23 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 						next_random_int = random.nextInt(20);
 					} while(next_random_int == random_int);
 
-					SCORE++;
+					SCORE += 2;
 
 					//	DOUBLE POINTS	------------------------------------------------------------
 					if(pro)
-						SCORE++;
+						SCORE += 2;
 					//	DOUBLE POINTS	------------------------------------------------------------
 
 					time_start = System.currentTimeMillis();
 
-					if(SCORE < 3)			{	time_begin = 2500;	}
-					else if(SCORE <= 20)	{	time_begin = 2200;	}
-					else if(SCORE <= 40)	{	time_begin = 2000;	}
-					else if(SCORE <= 60)	{	time_begin = 1800;	}
-					else if(SCORE <= 80)	{	time_begin = 1300;	}
-					else if(SCORE <= 90)	{	time_begin = 1100;	}
-					else if(SCORE <= 100)	{	time_begin = 1000;	}
-					else if(SCORE <= 150)	{	time_begin = 800;	}
-					else if(SCORE <= 200)	{	time_begin = 675;	}
-					else					{	time_begin = 550;	}
+					if(SCORE == 0)			{	time_begin = 1500;	}
+                    else if(SCORE <= 10)	{	time_begin = 1200;	}
+					else if(SCORE <= 20)	{	time_begin = 1000;	}
+					else if(SCORE <= 40)	{	time_begin = 900;	}
+					else if(SCORE <= 60)	{	time_begin = 800;	}
+					else if(SCORE <= 100)	{	time_begin = 700;	}
+					else if(SCORE <= 150)	{	time_begin = 600;	}
+					else if(SCORE <= 200)	{	time_begin = 550;	}
 
 					time_end = time_begin + form[random_int].getCkpCount() * 75;
 					sounds.play(sDing, 0.15f, 0.15f, 0, 0, 1.5f);
@@ -428,8 +426,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 		canvas.drawColor(Color.DKGRAY);
 		switch(game_state) {
 		case menu:
-			canvas.drawColor(Color.RED);
-			//bg_main.draw(canvas, WIDTH, HEIGHT);
+            bg_main.draw(canvas, WIDTH, HEIGHT);
 
 			if(!pro)
 				btn_logo.draw(canvas);
@@ -470,8 +467,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 				time_start = 0;
 				time_end = 2500;
 
-				if(SCORE > MainActivity.highscore) {
-					MainActivity.highscore = SCORE;
+				if(SCORE > Highscore.Highscore) {
+                    Highscore.Highscore = SCORE;
 				}
 
 				postGame_delay = true;
@@ -497,7 +494,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 				btn_logo_pro.draw(canvas);
 
 			btn_logo_score.draw(canvas);
-			canvas.drawText("" + MainActivity.highscore, WIDTH / 2, HEIGHT * 0.62f, highscoreText);
+			canvas.drawText("" + Highscore.Highscore, WIDTH / 2, HEIGHT * 0.62f, highscoreText);
 			break;
 
 		case postGame:
